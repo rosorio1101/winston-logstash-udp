@@ -1,9 +1,9 @@
 {
-    "name": "winston-logstash-udp",
-    "version": "0.2.1",
+    "name": "winston3-logstash-udp",
+    "version": "0.0.1",
     "description": "A Logstash UDP transport for winston",
     "main": "./lib/winston-logstash-udp",
-    "homepage": "https://github.com/sazze/winston-logstash-udp",
+    "homepage": "https://github.com/rosorio1101/winston-logstash-udp",
     "scripts": {
         "test": "mocha test/*_test.js"
     },
@@ -13,7 +13,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/sazze/winston-logstash-udp.git"
+        "url": "https://github.com/rosorio1101/winston-logstash-udp"
     },
     "dependencies": {
         "cycle": "^1.0.3",
@@ -33,7 +33,7 @@
         "tools"
     ],
     "bugs": {
-        "url": "https://github.com/sazze/winston-logstash-udp/issues"
+        "url": "https://github.com/rosorio1101/winston-logstash-udp/issues"
     },
     "author": {
         "name": "Craig Thayer",
@@ -71,6 +71,10 @@
         {
             "name": "Metál Ádám",
             "email": "devmetal91@gmail.com"
+        },
+        {
+            "name": "Roberto Osorio",
+            "email": "robertoosorio.s@gmail.com"
         }
     ],
     "maintainers": [
