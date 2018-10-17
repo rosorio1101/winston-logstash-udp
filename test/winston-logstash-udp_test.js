@@ -10,7 +10,7 @@ var chai = require('chai'),
     os = require('os'),
     common = require('winston/lib/winston/common'),
     freezed_time = new Date(1330688329321),
-
+    LogstashUDP = require('../lib/winston-logstash-udp'),
     testingPort = 9988
     ;
 
@@ -18,7 +18,7 @@ chai.config.includeStack = true;
 chai.should();
 chai.use(sinonChai);
 
-require('../lib/winston-logstash-udp');
+const sampleData = {"stream":"sample","level":"info","message":"hello world","application":"test","serverName":"localhost","pid":12345};
 
 describe('winston-logstash-udp transport', function () {
     var test_server, commonLogStored, port = testingPort;
@@ -61,11 +61,11 @@ describe('winston-logstash-udp transport', function () {
             }
         }
 
-        return new (winston.Logger)({
-            transports: [
-                new (winston.transports.LogstashUDP)(options)
-            ]
-        });
+        return  winston.createLogger(
+            {
+                transports: new LogstashUDP.LogstashUDP(options)
+            }
+        );
     }
 
     describe('with logstash server (udp4)', function () {
@@ -108,7 +108,7 @@ describe('winston-logstash-udp transport', function () {
                 common.log = sinon.stub().returns('{"what":"ever"}' + "\r\n\t ");
 
                 test_server = createTestServer(port, function (data) {
-                    expect(data.toString()).to.be.eql('{"what":"ever"}' + os.EOL);
+                    expect(data.toString()).to.be.eql(expect + os.EOL);
                     done();
                 });
 
@@ -125,7 +125,7 @@ describe('winston-logstash-udp transport', function () {
                 );
 
                 test_server = createTestServer(port, function (data) {
-                    expect(data.toString()).to.be.eql('{"what":"ever"}' + os.EOL + "\n");
+                    expect(data.toString()).to.be.eql(sampleData + os.EOL + "\n");
                     done();
                 });
 
@@ -192,7 +192,7 @@ describe('winston-logstash-udp transport', function () {
                     );
 
                     test_server = createTestServer(port, function (data) {
-                        expect(data.toString()).to.be.eql('{"what":"ever"}' + os.EOL);
+                        expect(data.toString()).to.be.eql(sampleData + os.EOL);
                         done();
                     }, 'udp6');
 
@@ -210,7 +210,7 @@ describe('winston-logstash-udp transport', function () {
                     );
 
                     test_server = createTestServer(port, function (data) {
-                        expect(data.toString()).to.be.eql('{"what":"ever"}' + os.EOL + "\n");
+                        expect(data.toString()).to.be.eql(sampleData + os.EOL + "\n");
                         done();
                     }, 'udp6');
 
